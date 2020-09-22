@@ -26,19 +26,16 @@
                             {{ trans('cruds.expense.fields.id') }}
                         </th>
                         <th>
-                            {{ trans('cruds.expense.fields.category') }}
+                            {{ trans('cruds.expense.fields.expense_category') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.expense.fields.entry_date') }}
                         </th>
                         <th>
                             {{ trans('cruds.expense.fields.amount') }}
                         </th>
                         <th>
-                            {{ trans('cruds.expense.fields.name') }}
-                        </th>
-                        <th>
                             {{ trans('cruds.expense.fields.description') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.expense.fields.expense_date') }}
                         </th>
                         <th>
                             &nbsp;
@@ -55,19 +52,16 @@
                                 {{ $expense->id ?? '' }}
                             </td>
                             <td>
-                                {{ $expense->category->name ?? '' }}
+                                {{ $expense->expense_category->name ?? '' }}
+                            </td>
+                            <td>
+                                {{ $expense->entry_date ?? '' }}
                             </td>
                             <td>
                                 {{ $expense->amount ?? '' }}
                             </td>
                             <td>
-                                {{ $expense->name ?? '' }}
-                            </td>
-                            <td>
                                 {{ $expense->description ?? '' }}
-                            </td>
-                            <td>
-                                {{ $expense->expense_date ?? '' }}
                             </td>
                             <td>
                                 @can('expense_show')

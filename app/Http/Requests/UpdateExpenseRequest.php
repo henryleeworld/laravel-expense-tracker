@@ -19,12 +19,12 @@ class UpdateExpenseRequest extends FormRequest
     public function rules()
     {
         return [
-            'amount'       => [
-                'required',
-            ],
-            'expense_date' => [
+            'entry_date' => [
                 'required',
                 'date_format:' . config('panel.date_format'),
+            ],
+            'amount'     => [
+                'required',
             ],
         ];
     }

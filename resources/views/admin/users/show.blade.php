@@ -44,7 +44,7 @@
                     </tr>
                     <tr>
                         <th>
-                            角色
+                            Roles
                         </th>
                         <td>
                             @foreach($user->roles as $id => $roles)
@@ -59,7 +59,14 @@
             </a>
         </div>
 
+        <nav class="mb-3">
+            <div class="nav nav-tabs">
 
+            </div>
+        </nav>
+        <div class="tab-content">
+
+        </div>
     </div>
 </div>
 @endsection

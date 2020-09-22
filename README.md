@@ -1,6 +1,6 @@
-# Laravel 6 財務管理
+# Laravel 8 財務管理
 
-簡單的理財軟體，方便使用者管理日常資金，透過追蹤費用支出並隨時讓你隨時可以查看各類別的費用總額，幫助你節省資金。Laravel 6 財務管理主要是用的 [QuickAdminPanel](https://quickadminpanel.com) 生成的，除了一些定制代碼，可依需求彈性改造的工具。
+簡單的理財軟體，方便使用者管理日常資金，透過追蹤費用支出並隨時讓你隨時可以查看各類別的費用總額，幫助你節省資金。Laravel 8 財務管理主要是用 [QuickAdminPanel](https://quickadminpanel.com) 生成的，除了一些定制代碼，可依需求彈性改造的工具。
 
 ## 使用方式
 - 把整個專案複製一份到你的電腦裡，這裡指的「內容」不是只有檔案，而是指所有整個專案的歷史紀錄、分支、標籤等內容都會複製一份下來。
@@ -26,8 +26,8 @@ $ php artisan migrate --seed
 ----
 
 ## 畫面截圖
-![](https://i.imgur.com/OlPVH2u.png)
-> 每一筆消費都確實紀錄，還可以分類別
+![](https://i.imgur.com/a44e3Ge.png)
+> 每一筆費用都確實紀錄，還可以分類別
 
-![](https://i.imgur.com/EqcryDi.png)
-> 以折線圖呈現消費金額數據的變化趨勢；以圓餅圖呈現消費類別百分比之間的相對關係
+![](https://i.imgur.com/AkkxVTs.png)
+> 每個月能總結當月的收入金額與費用金額

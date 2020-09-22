@@ -28,7 +28,7 @@
                     </tr>
                     <tr>
                         <th>
-                            權限
+                            Permissions
                         </th>
                         <td>
                             @foreach($role->permissions as $id => $permissions)

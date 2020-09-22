@@ -10,18 +10,30 @@
         <form action="{{ route("admin.expenses.update", [$expense->id]) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
-            <div class="form-group {{ $errors->has('category_id') ? 'has-error' : '' }}">
-                <label for="category">{{ trans('cruds.expense.fields.category') }}</label>
-                <select name="category_id" id="category" class="form-control select2">
-                    @foreach($categories as $id => $category)
-                        <option value="{{ $id }}" {{ (isset($expense) && $expense->category ? $expense->category->id : old('category_id')) == $id ? 'selected' : '' }}>{{ $category }}</option>
+            <div class="form-group {{ $errors->has('expense_category_id') ? 'has-error' : '' }}">
+                <label for="expense_category">{{ trans('cruds.expense.fields.expense_category') }}</label>
+                <select name="expense_category_id" id="expense_category" class="form-control select2">
+                    @foreach($expense_categories as $id => $expense_category)
+                        <option value="{{ $id }}" {{ (isset($expense) && $expense->expense_category ? $expense->expense_category->id : old('expense_category_id')) == $id ? 'selected' : '' }}>{{ $expense_category }}</option>
                     @endforeach
                 </select>
-                @if($errors->has('category_id'))
+                @if($errors->has('expense_category_id'))
                     <em class="invalid-feedback">
-                        {{ $errors->first('category_id') }}
+                        {{ $errors->first('expense_category_id') }}
                     </em>
                 @endif
+            </div>
+            <div class="form-group {{ $errors->has('entry_date') ? 'has-error' : '' }}">
+                <label for="entry_date">{{ trans('cruds.expense.fields.entry_date') }}*</label>
+                <input type="text" id="entry_date" name="entry_date" class="form-control date" value="{{ old('entry_date', isset($expense) ? $expense->entry_date : '') }}" required>
+                @if($errors->has('entry_date'))
+                    <em class="invalid-feedback">
+                        {{ $errors->first('entry_date') }}
+                    </em>
+                @endif
+                <p class="helper-block">
+                    {{ trans('cruds.expense.fields.entry_date_helper') }}
+                </p>
             </div>
             <div class="form-group {{ $errors->has('amount') ? 'has-error' : '' }}">
                 <label for="amount">{{ trans('cruds.expense.fields.amount') }}*</label>
@@ -35,21 +47,9 @@
                     {{ trans('cruds.expense.fields.amount_helper') }}
                 </p>
             </div>
-            <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
-                <label for="name">{{ trans('cruds.expense.fields.name') }}</label>
-                <input type="text" id="name" name="name" class="form-control" value="{{ old('name', isset($expense) ? $expense->name : '') }}">
-                @if($errors->has('name'))
-                    <em class="invalid-feedback">
-                        {{ $errors->first('name') }}
-                    </em>
-                @endif
-                <p class="helper-block">
-                    {{ trans('cruds.expense.fields.name_helper') }}
-                </p>
-            </div>
             <div class="form-group {{ $errors->has('description') ? 'has-error' : '' }}">
                 <label for="description">{{ trans('cruds.expense.fields.description') }}</label>
-                <textarea id="description" name="description" class="form-control ">{{ old('description', isset($expense) ? $expense->description : '') }}</textarea>
+                <input type="text" id="description" name="description" class="form-control" value="{{ old('description', isset($expense) ? $expense->description : '') }}">
                 @if($errors->has('description'))
                     <em class="invalid-feedback">
                         {{ $errors->first('description') }}
@@ -57,18 +57,6 @@
                 @endif
                 <p class="helper-block">
                     {{ trans('cruds.expense.fields.description_helper') }}
-                </p>
-            </div>
-            <div class="form-group {{ $errors->has('expense_date') ? 'has-error' : '' }}">
-                <label for="expense_date">{{ trans('cruds.expense.fields.expense_date') }}*</label>
-                <input type="text" id="expense_date" name="expense_date" class="form-control date" value="{{ old('expense_date', isset($expense) ? $expense->expense_date : '') }}" required>
-                @if($errors->has('expense_date'))
-                    <em class="invalid-feedback">
-                        {{ $errors->first('expense_date') }}
-                    </em>
-                @endif
-                <p class="helper-block">
-                    {{ trans('cruds.expense.fields.expense_date_helper') }}
                 </p>
             </div>
             <div>
