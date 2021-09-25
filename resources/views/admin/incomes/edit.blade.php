@@ -7,64 +7,62 @@
     </div>
 
     <div class="card-body">
-        <form action="{{ route("admin.incomes.update", [$income->id]) }}" method="POST" enctype="multipart/form-data">
-            @csrf
+        <form method="POST" action="{{ route("admin.incomes.update", [$income->id]) }}" enctype="multipart/form-data">
             @method('PUT')
-            <div class="form-group {{ $errors->has('income_category_id') ? 'has-error' : '' }}">
-                <label for="income_category">{{ trans('cruds.income.fields.income_category') }}</label>
-                <select name="income_category_id" id="income_category" class="form-control select2">
-                    @foreach($income_categories as $id => $income_category)
-                        <option value="{{ $id }}" {{ (isset($income) && $income->income_category ? $income->income_category->id : old('income_category_id')) == $id ? 'selected' : '' }}>{{ $income_category }}</option>
+            @csrf
+            <div class="form-group">
+                <label for="income_category_id">{{ trans('cruds.income.fields.income_category') }}</label>
+                <select class="form-control select2 {{ $errors->has('income_category') ? 'is-invalid' : '' }}" name="income_category_id" id="income_category_id">
+                    @foreach($income_categories as $id => $entry)
+                        <option value="{{ $id }}" {{ (old('income_category_id') ? old('income_category_id') : $income->income_category->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                     @endforeach
                 </select>
-                @if($errors->has('income_category_id'))
-                    <em class="invalid-feedback">
-                        {{ $errors->first('income_category_id') }}
-                    </em>
+                @if($errors->has('income_category'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('income_category') }}
+                    </div>
                 @endif
+                <span class="help-block">{{ trans('cruds.income.fields.income_category_helper') }}</span>
             </div>
-            <div class="form-group {{ $errors->has('entry_date') ? 'has-error' : '' }}">
-                <label for="entry_date">{{ trans('cruds.income.fields.entry_date') }}*</label>
-                <input type="text" id="entry_date" name="entry_date" class="form-control date" value="{{ old('entry_date', isset($income) ? $income->entry_date : '') }}" required>
+            <div class="form-group">
+                <label class="required" for="entry_date">{{ trans('cruds.income.fields.entry_date') }}</label>
+                <input class="form-control date {{ $errors->has('entry_date') ? 'is-invalid' : '' }}" type="text" name="entry_date" id="entry_date" value="{{ old('entry_date', $income->entry_date) }}" required>
                 @if($errors->has('entry_date'))
-                    <em class="invalid-feedback">
+                    <div class="invalid-feedback">
                         {{ $errors->first('entry_date') }}
-                    </em>
+                    </div>
                 @endif
-                <p class="helper-block">
-                    {{ trans('cruds.income.fields.entry_date_helper') }}
-                </p>
+                <span class="help-block">{{ trans('cruds.income.fields.entry_date_helper') }}</span>
             </div>
-            <div class="form-group {{ $errors->has('amount') ? 'has-error' : '' }}">
-                <label for="amount">{{ trans('cruds.income.fields.amount') }}*</label>
-                <input type="number" id="amount" name="amount" class="form-control" value="{{ old('amount', isset($income) ? $income->amount : '') }}" step="0.01" required>
+            <div class="form-group">
+                <label class="required" for="amount">{{ trans('cruds.income.fields.amount') }}</label>
+                <input class="form-control {{ $errors->has('amount') ? 'is-invalid' : '' }}" type="number" name="amount" id="amount" value="{{ old('amount', $income->amount) }}" step="0.01" required>
                 @if($errors->has('amount'))
-                    <em class="invalid-feedback">
+                    <div class="invalid-feedback">
                         {{ $errors->first('amount') }}
-                    </em>
+                    </div>
                 @endif
-                <p class="helper-block">
-                    {{ trans('cruds.income.fields.amount_helper') }}
-                </p>
+                <span class="help-block">{{ trans('cruds.income.fields.amount_helper') }}</span>
             </div>
-            <div class="form-group {{ $errors->has('description') ? 'has-error' : '' }}">
+            <div class="form-group">
                 <label for="description">{{ trans('cruds.income.fields.description') }}</label>
-                <input type="text" id="description" name="description" class="form-control" value="{{ old('description', isset($income) ? $income->description : '') }}">
+                <input class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" type="text" name="description" id="description" value="{{ old('description', $income->description) }}">
                 @if($errors->has('description'))
-                    <em class="invalid-feedback">
+                    <div class="invalid-feedback">
                         {{ $errors->first('description') }}
-                    </em>
+                    </div>
                 @endif
-                <p class="helper-block">
-                    {{ trans('cruds.income.fields.description_helper') }}
-                </p>
+                <span class="help-block">{{ trans('cruds.income.fields.description_helper') }}</span>
             </div>
-            <div>
-                <input class="btn btn-danger" type="submit" value="{{ trans('global.save') }}">
+            <div class="form-group">
+                <button class="btn btn-danger" type="submit">
+                    {{ trans('global.save') }}
+                </button>
             </div>
         </form>
-
-
     </div>
 </div>
+
+
+
 @endsection

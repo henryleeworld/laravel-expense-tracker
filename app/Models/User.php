@@ -2,49 +2,57 @@
 
 namespace App\Models;
 
-use App\Notifications\VerifyUserNotification;
 use Carbon\Carbon;
-use Hash;
+use DateTimeInterface;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Str;
-use Laravel\Passport\HasApiTokens;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
+    public $table = 'users';
+
     /**
      * The attributes that are mass assignable.
      *
-     * @var array
+     * @var string[]
      */
     protected $fillable = [
         'name',
         'email',
+        'email_verified_at',
         'password',
+        'remember_token',
         'created_at',
         'updated_at',
         'deleted_at',
-        'remember_token',
-        'email_verified_at',
     ];
 
     /**
-     * The attributes that should be hidden for arrays.
+     * The attributes that should be hidden for serialization.
      *
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
+    ];
+
+    protected $dates = [
+        'email_verified_at',
+        'created_at',
+        'updated_at',
+        'deleted_at',
     ];
 
     /**
-     * The attributes that should be cast to native types.
+     * The attributes that should be cast.
      *
      * @var array
      */
@@ -52,43 +60,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    protected $dates = [
-        'updated_at',
-        'created_at',
-        'deleted_at',
-        'email_verified_at',
-    ];
-
-    public function __construct(array $attributes = [])
+    public function getIsAdminAttribute()
     {
-        parent::__construct($attributes);
-        self::created(function (User $user) {
-            $registrationRole = config('panel.registration_default_role');
-
-            if (!$user->roles()->get()->contains($registrationRole)) {
-                $user->roles()->attach($registrationRole);
-            }
-        });
-    }
-
-    public function expenseCategories()
-    {
-        return $this->hasMany(ExpenseCategory::class, 'created_by_id', 'id');
-    }
-
-    public function incomeCategories()
-    {
-        return $this->hasMany(IncomeCategory::class, 'created_by_id', 'id');
-    }
-
-    public function expenses()
-    {
-        return $this->hasMany(Expense::class, 'created_by_id', 'id');
-    }
-
-    public function incomes()
-    {
-        return $this->hasMany(Income::class, 'created_by_id', 'id');
+        return $this->roles()->where('id', 1)->exists();
     }
 
     public function getEmailVerifiedAtAttribute($value)
@@ -116,5 +90,10 @@ class User extends Authenticatable
     public function roles()
     {
         return $this->belongsToMany(Role::class);
+    }
+
+    protected function serializeDate(DateTimeInterface $date)
+    {
+        return $date->format('Y-m-d H:i:s');
     }
 }

@@ -2,14 +2,16 @@
 
 namespace App\Models;
 
-use App\Traits\MultiTenantModelTrait;
+use \DateTimeInterface;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Income extends Model
 {
-    use SoftDeletes, MultiTenantModelTrait;
+    use SoftDeletes;
+    use HasFactory;
 
     public $table = 'incomes';
 
@@ -21,14 +23,13 @@ class Income extends Model
     ];
 
     protected $fillable = [
-        'amount',
+        'income_category_id',
         'entry_date',
+        'amount',
+        'description',
         'created_at',
         'updated_at',
         'deleted_at',
-        'description',
-        'created_by_id',
-        'income_category_id',
     ];
 
     public function income_category()
@@ -46,8 +47,8 @@ class Income extends Model
         $this->attributes['entry_date'] = $value ? Carbon::createFromFormat(config('panel.date_format'), $value)->format('Y-m-d') : null;
     }
 
-    public function created_by()
+    protected function serializeDate(DateTimeInterface $date)
     {
-        return $this->belongsTo(User::class, 'created_by_id');
+        return $date->format('Y-m-d H:i:s');
     }
 }

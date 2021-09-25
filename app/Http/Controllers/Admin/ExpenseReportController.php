@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Expense;
 use App\Http\Controllers\Controller;
+use App\Models\Expense;
 use App\Models\Income;
 use Carbon\Carbon;
 
@@ -32,7 +32,6 @@ class ExpenseReportController extends Controller
         $profit          = $incomesTotal - $expensesTotal;
 
         $expensesSummary = [];
-
         foreach ($groupedExpenses as $exp) {
             foreach ($exp as $line) {
                 if (!isset($expensesSummary[$line->expense_category->name])) {
@@ -41,13 +40,11 @@ class ExpenseReportController extends Controller
                         'amount' => 0,
                     ];
                 }
-
                 $expensesSummary[$line->expense_category->name]['amount'] += $line->amount;
             }
         }
 
         $incomesSummary = [];
-
         foreach ($groupedIncomes as $inc) {
             foreach ($inc as $line) {
                 if (!isset($incomesSummary[$line->income_category->name])) {
@@ -56,7 +53,6 @@ class ExpenseReportController extends Controller
                         'amount' => 0,
                     ];
                 }
-
                 $incomesSummary[$line->income_category->name]['amount'] += $line->amount;
             }
         }

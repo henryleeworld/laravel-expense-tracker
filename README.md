@@ -1,6 +1,6 @@
 # Laravel 8 財務管理
 
-簡單的理財軟體，方便使用者管理日常資金，透過追蹤費用支出並隨時讓你隨時可以查看各類別的費用總額，幫助你節省資金。Laravel 8 財務管理主要是用 [QuickAdminPanel](https://quickadminpanel.com) 生成的，除了一些定制代碼，可依需求彈性改造的工具。
+簡單的理財軟體，方便使用者管理日常資金，透過追蹤費用支出並隨時讓你隨時可以查看各類別的費用總額，幫助你節省資金。
 
 ## 使用方式
 - 把整個專案複製一份到你的電腦裡，這裡指的「內容」不是只有檔案，而是指所有整個專案的歷史紀錄、分支、標籤等內容都會複製一份下來。
@@ -12,7 +12,7 @@ $ git clone
 ```sh
 $ composer install
 ```
-- 產⽣ Laravel 要使用的一組 32 字元長度的隨機字串 APP_KEY 並存在 .env 內。
+- 產生 Laravel 要使用的一組 32 字元長度的隨機字串 APP_KEY 並存在 .env 內。
 ```sh
 $ php artisan key:generate
 ```
@@ -20,14 +20,18 @@ $ php artisan key:generate
 ```sh
 $ php artisan migrate --seed
 ```
+- 執行 __Artisan__ 指令的 __storage:link__ 來建立連結符號，讓公用可存取的檔案維持在一個目錄中。
+```sh
+$ php artisan storage:link
+```
 - 在瀏覽器中輸入已定義的路由 URL 來訪問，例如：http://127.0.0.1:8000。
-- 你可以登入經由 `/login` 來進行登入，預社的電子郵件和密碼分別為 __admin@admin.com__ 和 __password__ 。
+- 你可以登入經由 `/login` 來進行登入，預設的電子郵件和密碼分別為 __admin@admin.com__ 和 __password__ 。
 
 ----
 
 ## 畫面截圖
-![](https://i.imgur.com/a44e3Ge.png)
+![](https://i.imgur.com/sBWQ7yx.png)
 > 每一筆費用都確實紀錄，還可以分類別
 
-![](https://i.imgur.com/AkkxVTs.png)
+![](https://i.imgur.com/OTjTH2A.png)
 > 每個月能總結當月的收入金額與費用金額

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\ExpenseCategory;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyExpenseCategoryRequest;
 use App\Http\Requests\StoreExpenseCategoryRequest;
 use App\Http\Requests\UpdateExpenseCategoryRequest;
+use App\Models\ExpenseCategory;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,8 +40,6 @@ class ExpenseCategoryController extends Controller
     {
         abort_if(Gate::denies('expense_category_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $expenseCategory->load('created_by');
-
         return view('admin.expenseCategories.edit', compact('expenseCategory'));
     }
 
@@ -55,8 +53,6 @@ class ExpenseCategoryController extends Controller
     public function show(ExpenseCategory $expenseCategory)
     {
         abort_if(Gate::denies('expense_category_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        $expenseCategory->load('created_by');
 
         return view('admin.expenseCategories.show', compact('expenseCategory'));
     }

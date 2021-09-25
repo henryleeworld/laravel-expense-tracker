@@ -20,7 +20,7 @@
                     <label class="control-label" for="m">{{ trans('global.month') }}</label>
                     <select name="m" for="m" class="form-control">
                         @foreach(cal_info(0)['months'] as $month)
-                            <option value="{{ $month }}" @if($month===old('m', Request::get('m', date('m')))) selected @endif>
+                            <option value="{{ $month }}" @if($month===old('m', Request::get('m', date('F')))) selected @endif>
                                 {{ $month }}
                             </option>
                         @endforeach
@@ -88,10 +88,11 @@
             </div>
         </div>
 
-
-
     </div>
 </div>
+
+
+
 @endsection
 
 @section('scripts')

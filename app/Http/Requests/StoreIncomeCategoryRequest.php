@@ -2,24 +2,23 @@
 
 namespace App\Http\Requests;
 
-use App\IncomeCategory;
+use App\Models\IncomeCategory;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\Response;
 
 class StoreIncomeCategoryRequest extends FormRequest
 {
     public function authorize()
     {
-        abort_if(Gate::denies('income_category_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        return true;
+        return Gate::allows('income_category_create');
     }
 
     public function rules()
     {
         return [
             'name' => [
+                'string',
                 'required',
             ],
         ];

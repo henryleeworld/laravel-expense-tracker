@@ -7,64 +7,62 @@
     </div>
 
     <div class="card-body">
-        <form action="{{ route("admin.expenses.update", [$expense->id]) }}" method="POST" enctype="multipart/form-data">
-            @csrf
+        <form method="POST" action="{{ route("admin.expenses.update", [$expense->id]) }}" enctype="multipart/form-data">
             @method('PUT')
-            <div class="form-group {{ $errors->has('expense_category_id') ? 'has-error' : '' }}">
-                <label for="expense_category">{{ trans('cruds.expense.fields.expense_category') }}</label>
-                <select name="expense_category_id" id="expense_category" class="form-control select2">
-                    @foreach($expense_categories as $id => $expense_category)
-                        <option value="{{ $id }}" {{ (isset($expense) && $expense->expense_category ? $expense->expense_category->id : old('expense_category_id')) == $id ? 'selected' : '' }}>{{ $expense_category }}</option>
+            @csrf
+            <div class="form-group">
+                <label for="expense_category_id">{{ trans('cruds.expense.fields.expense_category') }}</label>
+                <select class="form-control select2 {{ $errors->has('expense_category') ? 'is-invalid' : '' }}" name="expense_category_id" id="expense_category_id">
+                    @foreach($expense_categories as $id => $entry)
+                        <option value="{{ $id }}" {{ (old('expense_category_id') ? old('expense_category_id') : $expense->expense_category->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                     @endforeach
                 </select>
-                @if($errors->has('expense_category_id'))
-                    <em class="invalid-feedback">
-                        {{ $errors->first('expense_category_id') }}
-                    </em>
+                @if($errors->has('expense_category'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('expense_category') }}
+                    </div>
                 @endif
+                <span class="help-block">{{ trans('cruds.expense.fields.expense_category_helper') }}</span>
             </div>
-            <div class="form-group {{ $errors->has('entry_date') ? 'has-error' : '' }}">
-                <label for="entry_date">{{ trans('cruds.expense.fields.entry_date') }}*</label>
-                <input type="text" id="entry_date" name="entry_date" class="form-control date" value="{{ old('entry_date', isset($expense) ? $expense->entry_date : '') }}" required>
+            <div class="form-group">
+                <label class="required" for="entry_date">{{ trans('cruds.expense.fields.entry_date') }}</label>
+                <input class="form-control date {{ $errors->has('entry_date') ? 'is-invalid' : '' }}" type="text" name="entry_date" id="entry_date" value="{{ old('entry_date', $expense->entry_date) }}" required>
                 @if($errors->has('entry_date'))
-                    <em class="invalid-feedback">
+                    <div class="invalid-feedback">
                         {{ $errors->first('entry_date') }}
-                    </em>
+                    </div>
                 @endif
-                <p class="helper-block">
-                    {{ trans('cruds.expense.fields.entry_date_helper') }}
-                </p>
+                <span class="help-block">{{ trans('cruds.expense.fields.entry_date_helper') }}</span>
             </div>
-            <div class="form-group {{ $errors->has('amount') ? 'has-error' : '' }}">
-                <label for="amount">{{ trans('cruds.expense.fields.amount') }}*</label>
-                <input type="number" id="amount" name="amount" class="form-control" value="{{ old('amount', isset($expense) ? $expense->amount : '') }}" step="0.01" required>
+            <div class="form-group">
+                <label class="required" for="amount">{{ trans('cruds.expense.fields.amount') }}</label>
+                <input class="form-control {{ $errors->has('amount') ? 'is-invalid' : '' }}" type="number" name="amount" id="amount" value="{{ old('amount', $expense->amount) }}" step="0.01" required>
                 @if($errors->has('amount'))
-                    <em class="invalid-feedback">
+                    <div class="invalid-feedback">
                         {{ $errors->first('amount') }}
-                    </em>
+                    </div>
                 @endif
-                <p class="helper-block">
-                    {{ trans('cruds.expense.fields.amount_helper') }}
-                </p>
+                <span class="help-block">{{ trans('cruds.expense.fields.amount_helper') }}</span>
             </div>
-            <div class="form-group {{ $errors->has('description') ? 'has-error' : '' }}">
+            <div class="form-group">
                 <label for="description">{{ trans('cruds.expense.fields.description') }}</label>
-                <input type="text" id="description" name="description" class="form-control" value="{{ old('description', isset($expense) ? $expense->description : '') }}">
+                <input class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" type="text" name="description" id="description" value="{{ old('description', $expense->description) }}">
                 @if($errors->has('description'))
-                    <em class="invalid-feedback">
+                    <div class="invalid-feedback">
                         {{ $errors->first('description') }}
-                    </em>
+                    </div>
                 @endif
-                <p class="helper-block">
-                    {{ trans('cruds.expense.fields.description_helper') }}
-                </p>
+                <span class="help-block">{{ trans('cruds.expense.fields.description_helper') }}</span>
             </div>
-            <div>
-                <input class="btn btn-danger" type="submit" value="{{ trans('global.save') }}">
+            <div class="form-group">
+                <button class="btn btn-danger" type="submit">
+                    {{ trans('global.save') }}
+                </button>
             </div>
         </form>
-
-
     </div>
 </div>
+
+
+
 @endsection

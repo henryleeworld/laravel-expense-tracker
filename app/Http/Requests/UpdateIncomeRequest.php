@@ -2,18 +2,16 @@
 
 namespace App\Http\Requests;
 
-use App\Income;
+use App\Models\Income;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\Response;
 
 class UpdateIncomeRequest extends FormRequest
 {
     public function authorize()
     {
-        abort_if(Gate::denies('income_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        return true;
+        return Gate::allows('income_edit');
     }
 
     public function rules()
@@ -23,8 +21,12 @@ class UpdateIncomeRequest extends FormRequest
                 'required',
                 'date_format:' . config('panel.date_format'),
             ],
-            'amount'     => [
+            'amount' => [
                 'required',
+            ],
+            'description' => [
+                'string',
+                'nullable',
             ],
         ];
     }

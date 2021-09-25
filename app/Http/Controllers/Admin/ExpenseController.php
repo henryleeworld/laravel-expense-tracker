@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Expense;
-use App\Models\ExpenseCategory;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyExpenseRequest;
 use App\Http\Requests\StoreExpenseRequest;
 use App\Http\Requests\UpdateExpenseRequest;
+use App\Models\Expense;
+use App\Models\ExpenseCategory;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,7 +18,7 @@ class ExpenseController extends Controller
     {
         abort_if(Gate::denies('expense_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $expenses = Expense::all();
+        $expenses = Expense::with(['expense_category'])->get();
 
         return view('admin.expenses.index', compact('expenses'));
     }
@@ -27,7 +27,7 @@ class ExpenseController extends Controller
     {
         abort_if(Gate::denies('expense_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $expense_categories = ExpenseCategory::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $expense_categories = ExpenseCategory::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         return view('admin.expenses.create', compact('expense_categories'));
     }
@@ -43,9 +43,9 @@ class ExpenseController extends Controller
     {
         abort_if(Gate::denies('expense_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $expense_categories = ExpenseCategory::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $expense_categories = ExpenseCategory::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $expense->load('expense_category', 'created_by');
+        $expense->load('expense_category');
 
         return view('admin.expenses.edit', compact('expense_categories', 'expense'));
     }
@@ -61,7 +61,7 @@ class ExpenseController extends Controller
     {
         abort_if(Gate::denies('expense_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $expense->load('expense_category', 'created_by');
+        $expense->load('expense_category');
 
         return view('admin.expenses.show', compact('expense'));
     }

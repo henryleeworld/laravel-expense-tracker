@@ -18,7 +18,7 @@ class IncomeController extends Controller
     {
         abort_if(Gate::denies('income_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $incomes = Income::all();
+        $incomes = Income::with(['income_category'])->get();
 
         return view('admin.incomes.index', compact('incomes'));
     }
@@ -27,7 +27,7 @@ class IncomeController extends Controller
     {
         abort_if(Gate::denies('income_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $income_categories = IncomeCategory::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $income_categories = IncomeCategory::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         return view('admin.incomes.create', compact('income_categories'));
     }
@@ -43,9 +43,9 @@ class IncomeController extends Controller
     {
         abort_if(Gate::denies('income_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $income_categories = IncomeCategory::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $income_categories = IncomeCategory::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $income->load('income_category', 'created_by');
+        $income->load('income_category');
 
         return view('admin.incomes.edit', compact('income_categories', 'income'));
     }
@@ -61,7 +61,7 @@ class IncomeController extends Controller
     {
         abort_if(Gate::denies('income_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $income->load('income_category', 'created_by');
+        $income->load('income_category');
 
         return view('admin.incomes.show', compact('income'));
     }

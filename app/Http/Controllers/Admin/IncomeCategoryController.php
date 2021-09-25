@@ -40,8 +40,6 @@ class IncomeCategoryController extends Controller
     {
         abort_if(Gate::denies('income_category_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $incomeCategory->load('created_by');
-
         return view('admin.incomeCategories.edit', compact('incomeCategory'));
     }
 
@@ -55,8 +53,6 @@ class IncomeCategoryController extends Controller
     public function show(IncomeCategory $incomeCategory)
     {
         abort_if(Gate::denies('income_category_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        $incomeCategory->load('created_by');
 
         return view('admin.incomeCategories.show', compact('incomeCategory'));
     }
