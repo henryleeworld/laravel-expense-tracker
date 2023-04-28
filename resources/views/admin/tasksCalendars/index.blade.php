@@ -21,10 +21,12 @@
 @parent
 <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.js'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/locale/zh-tw.js" integrity="sha512-EBYBWdQKCNrcSe7sJs7tJaJU2VJvCBr97uPybNjLVoypNDOyoBg62yrB/J3eBAHmfSydIhKrY0LAC/Fja+N0OA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
     $(document).ready(function() {
             // page is now ready, initialize the calendar...
             $('#calendar').fullCalendar({
+                locale: 'zh-tw',
                 // put your options and callbacks here
                 events : [
 @foreach($events as $event)

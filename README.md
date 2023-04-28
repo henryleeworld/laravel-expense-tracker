@@ -1,4 +1,4 @@
-# Laravel 8 財務管理
+# Laravel 9 財務管理
 
 簡單的理財軟體，方便使用者管理日常資金，透過追蹤費用支出並隨時讓你隨時可以查看各類別的費用總額，幫助你節省資金。
 
@@ -30,8 +30,8 @@ $ php artisan storage:link
 ----
 
 ## 畫面截圖
-![](https://i.imgur.com/sBWQ7yx.png)
+![](https://i.imgur.com/xvsLqi0.png)
 > 每一筆費用都確實紀錄，還可以分類別
 
-![](https://i.imgur.com/OTjTH2A.png)
+![](https://i.imgur.com/BiaALoB.png)
 > 每個月能總結當月的收入金額與費用金額

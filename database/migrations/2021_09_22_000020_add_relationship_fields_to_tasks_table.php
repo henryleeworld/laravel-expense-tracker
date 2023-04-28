@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddRelationshipFieldsToTasksTable extends Migration
+return new class extends Migration
 {
     public function up()
     {
@@ -15,4 +15,4 @@ class AddRelationshipFieldsToTasksTable extends Migration
             $table->foreign('assigned_to_id', 'assigned_to_fk_4933153')->references('id')->on('users');
         });
     }
-}
+};
