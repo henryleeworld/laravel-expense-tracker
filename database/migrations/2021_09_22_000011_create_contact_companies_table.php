@@ -6,10 +6,13 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    /**
+     * Run the migrations.
+     */
     public function up()
     {
         Schema::create('contact_companies', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('company_name')->nullable();
             $table->string('company_address')->nullable();
             $table->string('company_website')->nullable();

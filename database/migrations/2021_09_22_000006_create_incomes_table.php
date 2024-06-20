@@ -6,10 +6,13 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    /**
+     * Run the migrations.
+     */
     public function up()
     {
         Schema::create('incomes', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->date('entry_date')->nullable();
             $table->decimal('amount', 15, 2)->nullable();
             $table->string('description')->nullable();

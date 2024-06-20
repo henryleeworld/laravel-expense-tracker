@@ -6,11 +6,13 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    /**
+     * Run the migrations.
+     */
     public function up()
     {
         Schema::table('incomes', function (Blueprint $table) {
-            $table->unsignedBigInteger('income_category_id')->nullable();
-            $table->foreign('income_category_id', 'income_category_fk_4933129')->references('id')->on('income_categories');
+            $table->foreignId('income_category_id')->nullable()->constrained();
         });
     }
 };

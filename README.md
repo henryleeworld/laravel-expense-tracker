@@ -1,4 +1,4 @@
-# Laravel 9 財務管理
+# Laravel 10 財務管理
 
 簡單的理財軟體，方便使用者管理日常資金，透過追蹤費用支出並隨時讓你隨時可以查看各類別的費用總額，幫助你節省資金。
 
@@ -24,14 +24,22 @@ $ php artisan migrate --seed
 ```sh
 $ php artisan storage:link
 ```
+- 執行安裝 Vite 和 Laravel 擴充套件引用的依賴項目。
+```sh
+$ npm install
+```
+- 執行正式環境版本化資源管道並編譯。
+```sh
+$ npm run build
+```
 - 在瀏覽器中輸入已定義的路由 URL 來訪問，例如：http://127.0.0.1:8000。
 - 你可以登入經由 `/login` 來進行登入，預設的電子郵件和密碼分別為 __admin@admin.com__ 和 __password__ 。
 
 ----
 
 ## 畫面截圖
-![](https://i.imgur.com/xvsLqi0.png)
+![](https://i.imgur.com/bherHUt.png)
 > 每一筆費用都確實紀錄，還可以分類別
 
-![](https://i.imgur.com/BiaALoB.png)
+![](https://i.imgur.com/lYmtJrF.png)
 > 每個月能總結當月的收入金額與費用金額
